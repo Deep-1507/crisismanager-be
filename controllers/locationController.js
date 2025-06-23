@@ -2,7 +2,9 @@ import axios from "axios";
 
 export const getUserLocation = async (req, res) => {
   try {
-    const { lat, lon } = req.body;
+    // const { lat, lon } = req.body;
+    const lat = 28.6139;
+    const lon = 77.2090;
 
     if (!lat || !lon) {
       return res.status(400).json({ message: "Latitude and longitude are required." });
