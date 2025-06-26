@@ -1,4 +1,5 @@
 import axios from "axios";
+import triggerOmniCall from "../CallFunction/triggerOmniCall.js";
 
 export const getUserLocation = async (req, res) => {
   try {
@@ -45,48 +46,23 @@ export const getUserLocation = async (req, res) => {
   }
 };
 
-// omniCall.js
 
-export async function triggerOmniCall({
-  userNumber = "",
-  botId = 1854,
-  customJsonVariables = {},
-  onSuccess = () => {},
-  onError = () => {}
-} = {}) {
-  if (!userNumber || !botId) {
-    console.error("Missing required parameters.");
-    return;
-  }
+export const triggerCallAgent = async (req, res) => {
+  const { userNumber, lat, lon } = req.body;
 
-  try {
-    const response = await fetch("https://www.omnidim.io/api/bot/dispatch/call", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Origin": "https://www.omnidim.io", // optional
-        "Referer": `https://www.omnidim.io/agent/${botId}` // optional
-      },
-      body: JSON.stringify({
-        user_number: userNumber,
-        bot_id: botId,
-        custom_json_variables: customJsonVariables
-      }),
-      credentials: "include" // in case cookies are needed
-    });
+  console.log(userNumber, lat, lon)
 
-    if (!response.ok) {
-      throw new Error(`API call failed with status ${response.status}`);
+  const result = await triggerOmniCall({
+    userNumber,
+    customJsonVariables: {
+      lat,
+      lon
     }
+  });
 
-    const data = await response.json();
-
-    console.log("📞 Omni call response received:", data);
-    onSuccess(data); // callback to send result to UI
-    return data;
-  } catch (error) {
-    console.error("❌ Error triggering Omni call:", error);
-    onError(error); // callback for error handling
-    return null;
+  if (result) {
+    res.status(200).json({ message: "Call triggered", data: result });
+  } else {
+    res.status(500).json({ message: "Failed to trigger call" });
   }
-}
+};
