@@ -7,4 +7,4 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.get("/contacts", protect, getUserContacts);
 
-export default router;
+export default router; 

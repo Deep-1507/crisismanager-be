@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"name": "codeclash_main",
+		"path": "../.."
+	},
+	{
+		"name": "smartCrisis_manager",
+		"path": "../../../codeclash/smartCrisis_manager"
+	}
+], 
+  "settings": {}
+}
