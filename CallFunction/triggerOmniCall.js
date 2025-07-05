@@ -1,7 +1,7 @@
 export default async function triggerOmniCall({
-  userNumber = "",
-  botId = 1854,
-  customJsonVariables = {},
+  to_number = "",
+  agent_id = 1854,
+  call_context = {},
   onSuccess = () => {},
   onError = () => {}
 } = {}) {
@@ -11,22 +11,27 @@ export default async function triggerOmniCall({
   }
   try {
     console.log("Calling Omni API with:", {
-  user_number: userNumber,
-  bot_id: botId,
-  custom_json_variables: customJsonVariables
+  to_number: userNumber,
+  agent_id: botId,
+  call_context: customJsonVariables
 });
-    const response = await fetch("https://www.omnidim.io/api/bot/dispatch/call", {
+    const response = await fetch("https://backend.omnidim.io/api/v1/calls/dispatch", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Cookie": "session_id=22defdd3a9f3a454a35d86d3b85c3aa53fd7bf33", // ← Add actual session cookie here
+    "Authorization": "Bearer -GnXoMmbzHFDNL3mt7FhVFf7fW6Crp-YKwY-Z_htyQU",
   },
   body: JSON.stringify({
-    user_number: userNumber,
-    bot_id: botId,
-    custom_json_variables: customJsonVariables
-  }),
+    agent_id: 1854,
+    to_number: "+917005755245",
+    call_context: {
+      lat: "24.7198",
+      lon: "78.6342",
+      name: "Arvush Singh"
+    }
+  })
 });
+
 
 
     if (!response.ok) {
