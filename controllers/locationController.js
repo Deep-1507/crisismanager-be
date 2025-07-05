@@ -4,7 +4,7 @@ import triggerOmniCall from "../CallFunction/triggerOmniCall.js";
 export const getUserLocation = async (req, res) => {
   try {
     
-    const { lat, lon, name } = req.body;
+    const { lat, lon } = req.body;
 
     // const lat = 28.6139;  // New Delhi latitude (for testing)
     // const lon = 77.2090;  // New Delhi longitude (for testing)
@@ -48,7 +48,7 @@ export const getUserLocation = async (req, res) => {
 
 
 export const triggerCallAgent = async (req, res) => {
-  const { userNumber, lat, lon } = req.body;
+  const { userNumber, lat, lon, name } = req.body;
 
   console.log(userNumber, lat, lon)
 
@@ -56,7 +56,8 @@ export const triggerCallAgent = async (req, res) => {
     userNumber,
     customJsonVariables: {
       lat,
-      lon
+      lon,
+      name
     }
   });
 
