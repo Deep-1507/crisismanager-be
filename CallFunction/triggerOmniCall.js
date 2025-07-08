@@ -5,15 +5,15 @@ export default async function triggerOmniCall({
   onSuccess = () => {},
   onError = () => {}
 } = {}) {
-  if (!userNumber) {
+  if (!to_number) {
     console.error("Missing required parameters.");
     return;
   }
   try {
     console.log("Calling Omni API with:", {
-  to_number: userNumber,
-  agent_id: botId,
-  call_context: customJsonVariables
+  to_number,
+  agent_id,
+  call_context
 });
     const response = await fetch("https://backend.omnidim.io/api/v1/calls/dispatch", {
   method: "POST",

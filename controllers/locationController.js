@@ -53,8 +53,8 @@ export const triggerCallAgent = async (req, res) => {
   console.log(userNumber, lat, lon)
 
   const result = await triggerOmniCall({
-    userNumber,
-    customJsonVariables: {
+    to_number:userNumber,
+    call_context: {
       lat,
       lon,
       name
