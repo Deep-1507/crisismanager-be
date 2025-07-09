@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import locationRoutes from "./routes/locationRoutes.js";
+import ChatRoutes from "./routes/chatRoutes.js"
 import cors from "cors";
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 // ✅ Routes
 app.use("/api/users", userRoutes);
 app.use("/api/location", locationRoutes);
+app.use("/api/chat", ChatRoutes);
 
 // ✅ Start server
 const PORT = process.env.PORT || 5000;
